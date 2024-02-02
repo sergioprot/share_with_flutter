@@ -10,8 +10,7 @@ class MethodChannelShareWithFlutter extends ShareWithFlutterPlatform {
   final methodChannel = const MethodChannel('share_with_flutter');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+  Future<String?> getPlainText() async {
+    return await methodChannel.invokeMethod<String>('getPlainText');
   }
 }

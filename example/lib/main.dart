@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_with_flutter/share_with_flutter.dart';
 
@@ -16,8 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _shareWithFlutterPlugin = ShareWithFlutter();
+  String _plainText = 'No plain text was received';
 
   @override
   void initState() {
@@ -25,25 +24,17 @@ class _MyAppState extends State<MyApp> {
     initPlatformState();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
+    String text;
     try {
-      platformVersion =
-          await _shareWithFlutterPlugin.getPlatformVersion() ?? 'Unknown platform version';
+      text = await ShareWithFlutter.getPlainText() ?? 'No plain text';
     } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      text = 'Exception was thrown while trying to get plain text';
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
-      _platformVersion = platformVersion;
+      _plainText = text;
     });
   }
 
@@ -52,10 +43,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Share With Flutter'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Text(_plainText),
         ),
       ),
     );

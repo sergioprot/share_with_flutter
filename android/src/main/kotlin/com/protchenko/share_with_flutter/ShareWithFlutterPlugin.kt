@@ -22,8 +22,8 @@ class ShareWithFlutterPlugin: FlutterPlugin, MethodCallHandler {
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
+    if (call.method == "getPlainText") {
+      result.success(shareWithFlutterVarText)
     } else {
       result.notImplemented()
     }

@@ -23,7 +23,7 @@ abstract class ShareWithFlutterPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+  Future<String?> getPlainText() {
+    throw UnimplementedError('getPlainText() has not been implemented.');
   }
 }
